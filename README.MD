@@ -14,14 +14,14 @@ problem, since you can use a formula to calculate the correct sample size from a
 In order to do this, you will need to design a program that takes the entire data set as the initial input, you will
 then need to select the column / field, which represents the data point you're interested in using to create your sample
 from. For example, if you're analyzing the number of team wins, you will need to pick the team wins' field to use as the
-basis for selecting your sample data set. You would then use this to calculate the min, max, range, median, mode, mean,
-variance, standard deviation, and eventually the sample size of the population.
+basis for selecting your sample data set. You would then use this to calculate the min, max, median, mode, mean,
+standard deviation, and eventually the sample size of the population.
 
 Once you have the total sample size, you will use this to create a sample data set by selecting representative records
-of the median, mode, min, max, and then fill in the remainder of the data set by randomly selecting the appropriate
+of the min and max, and then fill in the remainder of the data set by randomly selecting the appropriate
 number of records from your population (original large data set) and saving that new sample data set to disk, so that it
 can be used for development. For example, let say you have a total population of 10,000 records, and you compute a
-sample size of 300, you would then select records that represent the  (min, max, median, mode) and then fill in the
+sample size of 300, you would then select records that represent the  (min, max) and then fill in the
 remaining records with randomly selected records to create a total of 300 records from the original dataset and save
 those records to disk. You cannot repeat records, each record must be unique. You are required to create a total of 15
 test data files that are generated using the specified values for confidence interval and margin of error. By doing this
@@ -29,23 +29,50 @@ you will create a selection of files that can be used at various points in devel
 complete you would increase the size of the input data to test various aspects of a program such as memory usage.
 
 # Videos
+
 1. [Lecture 1](https://youtu.be/JCQ_8ZlzhnY)
 2. [Lecture 2](https://youtu.be/FfdZm-UoBdc)
 
 # Your program is required to do the following:
 
-1. Take this file as input:
-2. Use the ______ field as the datapoint to select your sample.
+1. Take this file as input: [state_population.csv](data/state_population.csv)
+2. Use the population field as the datapoint to select your sample.
 3. Set the margin of error (.01, .05, .10)
 4. Calculate the following summary statistics for the selected field:
-    1. Count, Mean, Median, Mode, Min, Max, and Standard Deviation
+    1. Count, Min, Max, and Standard Deviation
     2. Sample Size at 80%, 85%, 90%, 95%, 99% confidence using .01, .05, .10 margin of error respectively
+
+    * Note use .5 standard deviation instead of the actual standard deviation to calculate the sample size
 5. Create test data file(s) that contain the number of values specified by the sample size; however, these files must
-   contain records that include records that contain the max and min of the selected data point from the
+   contain records that include max and min of the selected data point from the
    original data set.
-6. Output test data files to the output directory for the confidence interval specified above.
-    1. Filename names: test_data_sample_70.csv, test_data_sample_90.csv, test_data_sample_95.csv,
-       test_data_sample_99.csv
+6. Output test data files to the output directory called "sample_files_output"
+7. Your program should output 15 different files using the naming convention
+    1. sample_data_confidenceInterval_marginError_recordCount.csv:
+        * For example (counts are accurate):
+            1. sample_data_number_1.28_0.1_22.csv
+            2. sample_data_number_1.28_0.01_51.csv
+            3. sample_data_number_1.28_0.05_39.csv
+            4. sample_data_number_1.44_0.1_25.csv
+            5. sample_data_number_1.44_0.01_51.csv
+            6. sample_data_number_1.44_0.05_41.csv
+            7. sample_data_number_1.65_0.1_29.csv
+            8. sample_data_number_1.65_0.01_51.csv
+            9. sample_data_number_1.65_0.05_43.csv
+            10. sample_data_number_1.96_0.1_33.csv
+            11. sample_data_number_1.96_0.01_51.csv
+            12. sample_data_number_1.96_0.05_45.csv
+            13. sample_data_number_2.58_0.1_39.csv
+            14. sample_data_number_2.58_0.01_51.csv
+            15. sample_data_number_2.58_0.05_48.csv
+
+# Little Help
+
+1. Look at my config class [here](app/config/__init__.py)
+2. Look at my file utilities for making the path [here](app/file_ops/__init__.py)
+3. DO NOT FORGET TO USE .5 for your population standard deviation or the program won't generate the correct output
+   for my tests
+4. Check my code [here](https://github.com/NJIT-WIS/sample_data_generator_project1-demo), it is not complete; however it might help and give you some ideas
 
 ## Z-Score Table
 
@@ -64,12 +91,12 @@ You will be graded on:
 Grading Notes:
 
 1. You will at least get 30 points for turning the project in even if it doesn't work at all. You will automatically get
-   a total of 30 points for the assignment.  Except not having code in the app folder, which results in a 0.
+   a total of 30 points for the assignment. Except not having code in the app folder, which results in a 0.
 2. You will get a 0 if your application code is not in the app folder
 3. You will lose points for repeating lines of code. 5-10 points
 4. You will lose 10-20 points if the code does not follow separation of concerns
 5. You will lose 10-20 points if it appears you did not try to follow SOLID
-6. You will lose 10-20 points for not using classes 
+6. You will lose 10-20 points for not using classes
 7. You will lose 10-20 points for not using the correct types of methods i.e. mainly you are using static methods
 
 # Tips to complete this and Requirements
@@ -83,68 +110,30 @@ Grading Notes:
    Pandas. [Click Here](https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/02_read_write.html#min-tut-02-read-write)
 5. Read this tutorial about creating summary statistics with
    Pandas [Click Here](https://pandas.pydata.org/pandas-docs/stable/getting_started/intro_tutorials/06_calculate_statistics.html#min-tut-06-stats)
-* 6. Note: To get the correct values for sample size you will need to use .5 standard deviation if your standard deviation is greater than 1
-7. Break each part of both formulas down into specific steps such as count, average, variance, standard deviation,
-   etc...
-8. First do the sample calculation with the numbers from the WikiHow article, so you check your math
-9. Create one SMALL 100 record test file to work with Pandas from and work out the basic steps to solve this problem.  Once you have your program working then use the entire data file to generate the sample data files.
-10. Refactor your working code to place it in the app folder. Note, you don't need to make an actual command line
-    application, it just needs to work using tests, so you don't need a fully working program.
-11. You do need to put the code to call the methods of your program in
-    the [app/sample_data_generator.py](app/sample_data_generator.py) file.
-12. Your code needs to be module and follow separation of concerns, don't repeat yourself, and demonstrate SOLID to the
-    best of your ability.
-13. You can use Pandas for a lot of the functionality of the program, so once you know your steps, you should research
-    how Pandas can be used do it.
-14. Your final program should be static methods because you are mainly just sending commands to Pandas and Pandas
+6. First do the sample calculation with the numbers from the WikiHow article, so you check your math
+7. Refactor your working code to place it in the app folder. Note, you don't need to make an actual command line
+   application, it just needs to work using tests, so you don't need a fully working program.
+8. Your code needs to be module and follow separation of concerns, don't repeat yourself, and demonstrate SOLID to the
+   best of your ability.
+9. You can use Pandas for most of the functionality of the program, so once you know your steps, you should research
+   how Pandas can be used do it.
+10. Your final program should use static methods because you are mainly just sending commands to Pandas and Pandas
     dataframe is the data instance. Each Panda's command should be its own method, since you shouldn't directly call
     library functions.
-15. You need to calculate directory paths programmatically, or your program won't work on GitHub because it won't be
-    able
-    to find the data directory path, since Github's test environment is not the same as your own computer.
-16. Your data selection algorithm must not select the same record twice, so that it results in the correct total number
+11. You need to calculate directory paths programmatically, or your program won't work on GitHub because it won't be
+    able to find the data directory path, since Github's test environment is not the same as your own computer.
+    [Check here for my code](app/file_ops/__init__.py)
+12. Your data selection algorithm must not select the same record twice, so that it results in the correct total number
     of records specified by the sample size.
-17. Your program needs to output the new sample files to a directory called "sample_files_output" that is a sub folder of the
-    projects root directory i.e. <project directory>/output. Do not put the output folder inside the test directory.
-**17. Your program should output 15 different files using the naming convention 
-    1. sample_data_confidenceInterval_marginError_recordCount.csv:
-       * For example (counts are accurate):
-         1. sample_data_number_1.28_0.1_22.csv 
-         2. sample_data_number_1.28_0.01_51.csv 
-         3. sample_data_number_1.28_0.05_39.csv 
-         4. sample_data_number_1.44_0.1_25.csv 
-         5. sample_data_number_1.44_0.01_51.csv 
-         6. sample_data_number_1.44_0.05_41.csv 
-         7. sample_data_number_1.65_0.1_29.csv 
-         8. sample_data_number_1.65_0.01_51.csv 
-         9. sample_data_number_1.65_0.05_43.csv 
-         10. sample_data_number_1.96_0.1_33.csv 
-         11. sample_data_number_1.96_0.01_51.csv 
-         12. sample_data_number_1.96_0.05_45.csv 
-         13. sample_data_number_2.58_0.1_39.csv 
-         14. sample_data_number_2.58_0.01_51.csv 
-         15. sample_data_number_2.58_0.05_48.csv
-
-### Assignment Requirements
-
-### Module Readings:
-
-## Example Code
-
-### Prerequisite Knowledge
-
-Note: Previously completed on instances
 
 ## Steps to Complete the Assignment
 
-1. Open Pycharm Pro / Pycharm Community and clone the assignment repository. Open up a terminal in Pycharm, run "pip
+1. Open Pycharm Pro / Pycharm Community and clone the assignment repository. Open up a terminal in Pycharm, run "pip3
    install -r requirements.txt" and then run "pytest".  **If pycharm shows you an error about pip / requirements when
    you clone the repo just skip/cancel/dismiss the error and run the command in the terminal like I said above**
-2. You will need to complete the requirements for the assignment and remove/replace the tests that are meant to fail
-   that I placed in each file.
-3. When your pytest passes just commit and push it back to the origin and the assignment will be graded automatically by
-   GitHub running the test that you run locally.
-4. Check that your tests pass on GitHub after you push the assignment and then submit a link to your repository to the
+2. When your pytest --pylint passes just commit and push it back to the origin and the assignment will be graded
+   automatically by GitHub running the test that you run locally.
+3. Check that your tests pass on GitHub after you push the assignment and then submit a link to your repository to the
    assignment in Canvas. In GitHub on the repository, click the actions tab on GitHub to see your tests run. You will
    need to click on the autograding workflow to inspect that screen to see the detail test results.
 

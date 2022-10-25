@@ -1,3 +1,4 @@
 .pylintrc
 .pytest_cache.idea
 .idea
+sample_files_output/samp*

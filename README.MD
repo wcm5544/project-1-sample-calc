@@ -37,11 +37,11 @@ complete you would increase the size of the input data to test various aspects o
 1. Take this file as input:
 2. Use the ______ field as the datapoint to select your sample.
 3. Set the margin of error (.01, .05, .10)
-4. Calculate the following statistics for the selected field:
-    1. Count, Mean, Median, Mode, Min, Max, Range, and Standard Deviation
+4. Calculate the following summary statistics for the selected field:
+    1. Count, Mean, Median, Mode, Min, Max, and Standard Deviation
     2. Sample Size at 80%, 85%, 90%, 95%, 99% confidence using .01, .05, .10 margin of error respectively
 5. Create test data file(s) that contain the number of values specified by the sample size; however, these files must
-   contain records that include records that contain the min, max, median, and mode of the selected data point from the
+   contain records that include records that contain the max and min of the selected data point from the
    original data set.
 6. Output test data files to the output directory for the confidence interval specified above.
     1. Filename names: test_data_sample_70.csv, test_data_sample_90.csv, test_data_sample_95.csv,
@@ -104,26 +104,26 @@ Grading Notes:
     to find the data directory path, since Github's test environment is not the same as your own computer.
 16. Your data selection algorithm must not select the same record twice, so that it results in the correct total number
     of records specified by the sample size.
-17. Your program needs to output the new sample files to a directory called "output" that is a sub folder of the
+17. Your program needs to output the new sample files to a directory called "sample_files_output" that is a sub folder of the
     projects root directory i.e. <project directory>/output. Do not put the output folder inside the test directory.
-**17. Your program should output 15 different files using the naming convention sample_data_confidenceInterval_
-    marginError_recordCount.csv:
-    * For example (counts are not accurate):
-        1. sample_data_80_01_300.csv
-        2. sample_data_80_05_280.csv
-        3. sample_data_80_10_250.csv
-        4. sample_data_85_01_300.csv
-        5. sample_data_85_05_280.csv
-        6. sample_data_85_10_250.csv
-        7. sample_data_90_01_300.csv
-        8. sample_data_90_05_280.csv
-        9. sample_data_90_10_250.csv
-        10. sample_data_95_01_300.csv
-        11. sample_data_95_05_280.csv
-        12. sample_data_95_10_250.csv
-        13. sample_data_99_01_300.csv
-        14. sample_data_99_05_280.csv
-        15. sample_data_99_10_250.csv**
+**17. Your program should output 15 different files using the naming convention 
+    1. sample_data_confidenceInterval_marginError_recordCount.csv:
+       * For example (counts are accurate):
+         1. sample_data_number_1.28_0.1_22.csv 
+         2. sample_data_number_1.28_0.01_51.csv 
+         3. sample_data_number_1.28_0.05_39.csv 
+         4. sample_data_number_1.44_0.1_25.csv 
+         5. sample_data_number_1.44_0.01_51.csv 
+         6. sample_data_number_1.44_0.05_41.csv 
+         7. sample_data_number_1.65_0.1_29.csv 
+         8. sample_data_number_1.65_0.01_51.csv 
+         9. sample_data_number_1.65_0.05_43.csv 
+         10. sample_data_number_1.96_0.1_33.csv 
+         11. sample_data_number_1.96_0.01_51.csv 
+         12. sample_data_number_1.96_0.05_45.csv 
+         13. sample_data_number_2.58_0.1_39.csv 
+         14. sample_data_number_2.58_0.01_51.csv 
+         15. sample_data_number_2.58_0.05_48.csv
 
 ### Assignment Requirements
 

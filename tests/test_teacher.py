@@ -1,17 +1,13 @@
 """This is the starting test file"""
 import os
-from app.config import Config
-
-from app.file_ops import FileOperations
 
 
 def test_main():
     # pylint: disable=line-too-long
     """My Main Test"""
-    base_path = FileOperations.get_project_root_directory()
-    sample_files_output = Config.sample_files_output
-    path = os.path.join(base_path, sample_files_output)
-    sample_files_output_directory_contents = os.listdir(path)
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    sample_files_output_dir = os.path.join(base_dir, '..', 'sample_files_output')
+    sample_files_output_directory_contents = os.listdir(sample_files_output_dir)
     assert len(sample_files_output_directory_contents) - 1 == 15, "There is an incorrect number of files"
     correct_data_file_names = ("sample_data_number_1.28_0.1_22.csv",
                                "sample_data_number_1.28_0.01_51.csv",
